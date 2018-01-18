@@ -10,9 +10,9 @@ A simple helper script to install winbox in GNU/Linux
 
 ## How to install:
 Copy and paste this commands to your terminal
-1. `wget -c https://github.com/mriza/winbox-installer/archive/v0.3.tar.gz`
-2. `tar xvzf v0.3.tar.gz`
-3. `cd winbox-installer-0.3`
+1. `cd /tmp`
+2. `git clone https://github.com/mriza/winbox-installer.git`
+3. `cd winbox-installer`
 4. `sudo ./winbox-setup install` OR `sudo sh winbox-setup install`
 
 ## Icon cache in GTK based desktop
