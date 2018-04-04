@@ -3,7 +3,7 @@
 # What this script does:
 #   1. Downloading wine, wget and unzip, if not installed on the system
 #   2. Downloading winbox from Mikrotik's download page
-#   3. Copying winbox to /opt/winbox/ directory
+#   3. Copying winbox to /usr/local/bin/ directory
 #   4. Copying icons to /usr/share/icons/hicolor/*/apps
 #   5. Creating launcher for Winbox
 #
@@ -28,7 +28,7 @@ depInst() {
   echo -n "Installing dependencies..."
   case $DISTRIBUTION in
     'fedora' | '"rhel"' | '"centos"' | '"IGN"' )
-      dnf -q -y install wine wget > /dev/null 2>&1
+      dnf -q -y install wine wget > /dev/null 2>&1 || yum -q -y install wine wget > /dev/null 2>&1
       echo "DONE"
     ;;
     'ubuntu' | 'debian' | '"elementary"' | 'linuxmint' | 'kali' )
@@ -46,7 +46,7 @@ depInst() {
 # The URL of the file is parsed from https://mikrotik.com/download
 wbDl() {
 
-  if [[ $(ls -al | grep winbox.exe) ]]
+  if [[ -f winbox.exe ]]
   then
     echo "Using previously downloaded winbox.exe"
   else
@@ -65,10 +65,11 @@ wbDl() {
 
 filesCp() {
   echo -n "Copying files..."
-  if [[ !$(mkdir -p /opt/winbox) ]]
+  if [[ !$(mkdir -p /usr/local/bin) ]]
   then
-    if [[ !$(cp -f winbox.exe /opt/winbox/winbox.exe) ]]
+    if [[ !$(cp -f winbox.exe /usr/local/bin/winbox.exe) ]]
     then
+	    chmod a+x /usr/local/bin/winbox.exe
 	    for size in $( ls -1 icons/winbox-*.png | cut -d\- -f2 | cut -d\. -f1 | paste -sd ' ') ; do
 		    mkdir -p /usr/share/icons/hicolor/${size}/apps/
 		    cp -f icons/winbox-${size}.png /usr/share/icons/hicolor/${size}/apps/winbox.png
@@ -92,7 +93,7 @@ lncCrt() {
     echo "Name=Winbox" >> /usr/share/applications/winbox.desktop
     echo "GenericName=Configuration tool for RouterOS" >> /usr/share/applications/winbox.desktop
     echo "Comment=Configuration tool for RouterOS" >> /usr/share/applications/winbox.desktop
-    echo "Exec=wine /opt/winbox/winbox.exe" >> /usr/share/applications/winbox.desktop
+    echo "Exec=wine /usr/local/bin/winbox.exe" >> /usr/share/applications/winbox.desktop
     echo "Icon=winbox" >> /usr/share/applications/winbox.desktop
     echo "Terminal=false" >> /usr/share/applications/winbox.desktop
     echo "Type=Application" >> /usr/share/applications/winbox.desktop
@@ -117,7 +118,7 @@ filesRm() {
   echo "DONE"
 
   echo -n "Removing files..."
-  rm -rf /opt/winbox/
+  rm -rf /usr/local/bin/winbox.exe
   echo "DONE"
 }
 
@@ -126,7 +127,10 @@ if [ -z "$1" ]; then
 fi
 case $1 in
   'install' )
-    depInst
+    if [[ ! $(wine --version) ]]
+    then
+        depInst
+    fi
     if wbDl
     then
       if filesCp
