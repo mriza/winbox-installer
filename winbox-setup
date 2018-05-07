@@ -28,11 +28,11 @@ depInst() {
   echo -n "Installing dependencies..."
   case $DISTRIBUTION in
     'fedora' | '"rhel"' | '"centos"' | '"IGN"' )
-      dnf -q -y install wine wget > /dev/null 2>&1 || yum -q -y install wine wget > /dev/null 2>&1
+      dnf -q -y install wine wget curl > /dev/null 2>&1 || yum -q -y install wine wget curl > /dev/null 2>&1
       echo "DONE"
     ;;
     'ubuntu' | 'debian' | '"elementary"' | 'zorin' | 'linuxmint' | 'kali' )
-      apt-get -q -y install wine wget > /dev/null 2>&1
+      apt-get -q -y install wine wget curl > /dev/null 2>&1
       echo "DONE"
     ;;
     *)
