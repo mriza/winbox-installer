@@ -93,7 +93,7 @@ lncCrt() {
     echo "Name=Winbox" >> /usr/share/applications/winbox.desktop
     echo "GenericName=Configuration tool for RouterOS" >> /usr/share/applications/winbox.desktop
     echo "Comment=Configuration tool for RouterOS" >> /usr/share/applications/winbox.desktop
-    echo "Exec=wine /usr/local/bin/winbox.exe" >> /usr/share/applications/winbox.desktop
+    echo "Exec=FREETYPE_PROPERTIES=\"truetype:interpreter-version=35\" wine /usr/local/bin/winbox.exe" >> /usr/share/applications/winbox.desktop
     echo "Icon=winbox" >> /usr/share/applications/winbox.desktop
     echo "Terminal=false" >> /usr/share/applications/winbox.desktop
     echo "Type=Application" >> /usr/share/applications/winbox.desktop
