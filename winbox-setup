@@ -69,6 +69,8 @@ filesCp() {
   then
     if [[ !$(cp -f winbox.exe /usr/local/bin/winbox.exe) ]]
     then
+    	cp -f winbox.sh /usr/local/bin/winbox.sh
+    	chmod a+x /usr/local/bin/winbox.sh
 	    chmod a+x /usr/local/bin/winbox.exe
 	    for size in $( ls -1 icons/winbox-*.png | cut -d\- -f2 | cut -d\. -f1 | paste -sd ' ') ; do
 		    mkdir -p /usr/share/icons/hicolor/${size}/apps/
