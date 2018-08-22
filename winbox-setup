@@ -35,6 +35,10 @@ depInst() {
       apt-get -q -y install wine wget curl > /dev/null 2>&1
       echo "DONE"
     ;;
+    'arch' )
+      pacman -Sq --noconfirm wine wget curl > /dev/null 2>&1
+      echo "DONE"
+    ;;
     *)
       echo "FAILED"
       exit 1
