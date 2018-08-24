@@ -125,6 +125,7 @@ filesRm() {
 
   echo -n "Removing files..."
   rm -rf /usr/local/bin/winbox.exe
+  rm -rf /usr/local/bin/winbox.sh
   echo "DONE"
 }
 
