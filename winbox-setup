@@ -32,7 +32,18 @@ depInst() {
       echo "DONE"
     ;;
     'ubuntu' | 'debian' | '"elementary"' | 'zorin' | 'linuxmint' | 'kali' )
-      apt-get -q -y install wine wget curl > /dev/null 2>&1
+      if [ -f /etc/os-release ]
+      then
+        source /etc/os-release
+      fi
+
+      if [ $(echo $VERSION_ID | awk '{printf "%1.0f",$1}') -ge 18 ]
+      then
+        WINEPKG="wine-stable"
+      else
+        WINEPKG="wine"
+      fi
+      apt-get -q -y install $WINEPKG wget curl > /dev/null 2>&1
       echo "DONE"
     ;;
     'arch' )
