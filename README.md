@@ -15,6 +15,11 @@ Copy and paste this commands to your terminal
 3. `cd winbox-installer`
 4. `sudo ./winbox-setup install` OR `sudo sh winbox-setup install`
 
+On fedora/CentOS/Redhat, if you experience neighbour discovery, open the port in the firewall ( thanks @yrubdab )
+
+`firewall-cmd --permanent --add-port=5678/udp
+firewall-cmd --reload`
+
 ## Icon cache in GTK based desktop
 Optional step for GTK based desktop, if the icon is not loaded or loaded with wrong size. Update icon cache with this command: `gtk-update-icon-cache -f -t /usr/share/icons/hicolor`
 
