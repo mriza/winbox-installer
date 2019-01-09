@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 # Winbox Installer
 # What this script does:
 #   1. Downloading wine, wget and unzip, if not installed on the system
