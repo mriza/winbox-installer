@@ -25,7 +25,7 @@ sudo bash winbox-setup remove"
 # Installing dependencies
 depInst() {
   DISTRIBUTION=`sed "/^ID/s/ID=//gp" -n /etc/os-release`
-  echo -n "Installing dependencies..."
+  echo -n "Wine is not installed. Installing wine and dependencies..."
   case $DISTRIBUTION in
     'fedora' | '"rhel"' | '"centos"' | '"IGN"' )
       dnf -q -y install wine wget curl > /dev/null 2>&1 || yum -q -y install wine wget curl > /dev/null 2>&1
