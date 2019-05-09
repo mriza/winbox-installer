@@ -47,6 +47,8 @@ depInst() {
       echo "DONE"
     ;;
     'arch' )
+      sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+      pacman -Sy
       pacman -Sq --noconfirm wine wget curl > /dev/null 2>&1
       echo "DONE"
     ;;
