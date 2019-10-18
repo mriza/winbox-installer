@@ -62,21 +62,19 @@ depInst() {
 # Downloading latest version of Winbox from Mikrotik's website.
 # The URL of the file is parsed from https://mikrotik.com/download
 wbDl() {
-
   if [[ -f winbox.exe ]]
   then
     echo "Using previously downloaded winbox.exe"
   else
     echo -n "Downloading Winbox..."
-    URL="http:"$(curl -s https://mikrotik.com/download | grep -o //.*winbox.exe)
-    URLlenght=${#URL}
-    if [[ $URLlenght<60 ]]; then
-      echo "FAILED"
-      exit 1
-    else
-      wget -q -c -O winbox.exe $URL
-      echo "DONE"
+
+    URL="https://mt.lv/winbox"
+    if [[ $(uname -a | grep -o "x86_64") ]]; then
+      URL=${URL}64
     fi
+
+    wget -q -c -O winbox.exe $URL
+    echo "DONE"
   fi
 }
 
