@@ -115,6 +115,7 @@ lncCrt() {
     echo "Terminal=false" >> /usr/share/applications/winbox.desktop
     echo "Type=Application" >> /usr/share/applications/winbox.desktop
     echo "StartupNotify=true" >> /usr/share/applications/winbox.desktop
+    echo "StartupWMClass=winbox.exe" >> /usr/share/applications/winbox.desktop
     echo "Categories=Network;RemoteAccess;" >> /usr/share/applications/winbox.desktop
     echo "Keywords=winbox;mikrotik;" >> /usr/share/applications/winbox.desktop
     xdg-desktop-menu forceupdate --mode system
