@@ -68,13 +68,12 @@ wbDl() {
     echo "Using previously downloaded winbox.exe"
   else
     echo -n "Downloading Winbox..."
-    URL="http:"$(curl -s https://mikrotik.com/download | grep -o //.*winbox.exe)
-    URLlenght=${#URL}
-    if [[ $URLlenght<60 ]]; then
+    wget -q -c -O winbox.exe https://mt.lv/winbox
+    if [ $? -ne 0 ]
+    then
       echo "FAILED"
       exit 1
     else
-      wget -q -c -O winbox.exe $URL
       echo "DONE"
     fi
   fi
