@@ -62,21 +62,19 @@ depInst() {
 # Downloading latest version of Winbox from Mikrotik's website.
 # The URL of the file is parsed from https://mikrotik.com/download
 wbDl() {
-
   if [[ -f winbox.exe ]]
   then
     echo "Using previously downloaded winbox.exe"
   else
     echo -n "Downloading Winbox..."
-    URL="http:"$(curl -s https://mikrotik.com/download | grep -o //.*winbox.exe)
-    URLlenght=${#URL}
-    if [[ $URLlenght<60 ]]; then
-      echo "FAILED"
-      exit 1
-    else
-      wget -q -c -O winbox.exe $URL
-      echo "DONE"
+
+    URL="https://mt.lv/winbox"
+    if [[ $(uname -a | grep -o "x86_64") ]]; then
+      URL=${URL}64
     fi
+
+    wget -q -c -O winbox.exe $URL
+    echo "DONE"
   fi
 }
 
@@ -117,6 +115,7 @@ lncCrt() {
     echo "Terminal=false" >> /usr/share/applications/winbox.desktop
     echo "Type=Application" >> /usr/share/applications/winbox.desktop
     echo "StartupNotify=true" >> /usr/share/applications/winbox.desktop
+    echo "StartupWMClass=winbox.exe" >> /usr/share/applications/winbox.desktop
     echo "Categories=Network;RemoteAccess;" >> /usr/share/applications/winbox.desktop
     echo "Keywords=winbox;mikrotik;" >> /usr/share/applications/winbox.desktop
     xdg-desktop-menu forceupdate --mode system
