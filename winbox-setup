@@ -31,7 +31,7 @@ depInst() {
       dnf -q -y install wine wget curl > /dev/null 2>&1 || yum -q -y install wine wget curl > /dev/null 2>&1
       echo "DONE"
     ;;
-    'ubuntu' | 'debian' | '"elementary"' | 'zorin' | 'linuxmint' | 'kali' )
+    'ubuntu' | 'debian' | '"elementary"' | 'zorin' | 'linuxmint' | 'kali' | 'neon' )
       if [ -f /etc/os-release ]
       then
         source /etc/os-release
