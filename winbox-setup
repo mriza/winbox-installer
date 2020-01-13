@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 # Winbox Installer
 # What this script does:
 #   1. Downloading wine, wget and unzip, if not installed on the system
@@ -7,7 +7,7 @@
 #   4. Copying icons to /usr/share/icons/hicolor/*/apps
 #   5. Creating launcher for Winbox
 #
-# Wrritten by Mohammad Riza Nurtam <muhammadriza@gmail.com>
+# Written by Mohammad Riza Nurtam <muhammadriza@gmail.com>
 # version=0.3
 # winbox_version=3.11
 
@@ -25,7 +25,7 @@ sudo bash winbox-setup remove"
 # Installing dependencies
 depInst() {
   DISTRIBUTION=`sed "/^ID/s/ID=//gp" -n /etc/os-release`
-  echo -n "Installing dependencies..."
+  echo -n "Wine is not installed. Installing wine and dependencies..."
   case $DISTRIBUTION in
     'fedora' | '"rhel"' | '"centos"' | '"IGN"' )
       dnf -q -y install wine wget curl > /dev/null 2>&1 || yum -q -y install wine wget curl > /dev/null 2>&1
@@ -47,6 +47,8 @@ depInst() {
       echo "DONE"
     ;;
     'arch' )
+      sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+      pacman -Sy
       pacman -Sq --noconfirm wine wget curl > /dev/null 2>&1
       echo "DONE"
     ;;
@@ -60,21 +62,19 @@ depInst() {
 # Downloading latest version of Winbox from Mikrotik's website.
 # The URL of the file is parsed from https://mikrotik.com/download
 wbDl() {
-
   if [[ -f winbox.exe ]]
   then
     echo "Using previously downloaded winbox.exe"
   else
     echo -n "Downloading Winbox..."
-    URL="http:"$(curl -s https://mikrotik.com/download | grep -o //.*winbox.exe)
-    URLlenght=${#URL}
-    if [[ $URLlenght<60 ]]; then
-      echo "FAILED"
-      exit 1
-    else
-      wget -q -c -O winbox.exe $URL
-      echo "DONE"
+
+    URL="https://mt.lv/winbox"
+    if [[ $(uname -a | grep -o "x86_64") ]]; then
+      URL=${URL}64
     fi
+
+    wget -q -c -O winbox.exe $URL
+    echo "DONE"
   fi
 }
 
@@ -115,6 +115,7 @@ lncCrt() {
     echo "Terminal=false" >> /usr/share/applications/winbox.desktop
     echo "Type=Application" >> /usr/share/applications/winbox.desktop
     echo "StartupNotify=true" >> /usr/share/applications/winbox.desktop
+    echo "StartupWMClass=winbox.exe" >> /usr/share/applications/winbox.desktop
     echo "Categories=Network;RemoteAccess;" >> /usr/share/applications/winbox.desktop
     echo "Keywords=winbox;mikrotik;" >> /usr/share/applications/winbox.desktop
     xdg-desktop-menu forceupdate --mode system
