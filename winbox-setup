@@ -69,9 +69,6 @@ wbDl() {
     echo -n "Downloading Winbox..."
 
     URL="https://download.mikrotik.com/routeros/winbox/3.19/winbox.exe"
-    if [[ $(uname -a | grep -o "x86_64") ]]; then
-      URL=${URL}64
-    fi
 
     wget -q -c -O winbox.exe $URL
     echo "DONE"
