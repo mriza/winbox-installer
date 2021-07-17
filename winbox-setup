@@ -59,8 +59,8 @@ depInst() {
   esac
 }
 
-# Downloading latest version of Winbox from Mikrotik's website.
-# The URL of the file is parsed from https://mikrotik.com/download
+# Downloading stable version of Winbox from Mikrotik's website.
+# The URL of the file is parsed from https://download.mikrotik.com/routeros/winbox/3.19/winbox.exe
 wbDl() {
   if [[ -f winbox.exe ]]
   then
@@ -68,10 +68,7 @@ wbDl() {
   else
     echo -n "Downloading Winbox..."
 
-    URL="https://mt.lv/winbox"
-    if [[ $(uname -a | grep -o "x86_64") ]]; then
-      URL=${URL}64
-    fi
+    URL="https://download.mikrotik.com/routeros/winbox/3.19/winbox.exe"
 
     wget -q -c -O winbox.exe $URL
     echo "DONE"
