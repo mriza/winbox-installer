@@ -14,7 +14,8 @@ Copy and paste this commands to your terminal:
 1. `cd /tmp`
 2. `git clone https://github.com/mriza/winbox-installer.git`
 3. `cd winbox-installer`
-4. `sudo ./winbox-setup install` **OR** `sudo bash winbox-setup install`
+4. _Optional_: `Download the installer from [here](https://mikrotik.com/download), rename it to _winbox.exe_ and place it into this folder for offline installation`
+5. `sudo ./winbox-setup install` **OR** `sudo bash winbox-setup install`
 
 ## Firewall setting:
 On Fedora/CentOS/Redhat, if you experience neighbor discovery problems, open the port in the firewall ( thanks @yrubdab )
